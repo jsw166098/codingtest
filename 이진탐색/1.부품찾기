@@ -1,0 +1,46 @@
+# 1. 부품 찾기
+
+전자 매장에 N개의 부품이 있으며 각 부품은 고유의 번호가 부여된다. 손님이 M개 종류의 부품을 요청할 때 해당 
+부품들이 매장에 존재하는지 확인하라
+
+* 입력 조건: 첫번째 줄에는 매장에 존재하는 부품의 수, 그 다음 줄에는 각 부품의 번호가 입력된다.
+세 번째 줄에는 손님이 요구하는 부품의 개수와 그 다음줄에는 요구하는 부품의 고유 번호가 적혀있다.
+
+* 출력 조건: 손님이 요청한 부품이 모두 존재하면 'yes', 그렇지 않으면 'no'를 출력하라
+
+~~~
+# 부품 찾기
+
+# 풀이1: 반복을 통한 이진탐색
+def binary_search(array, target, start, end):
+    while start <= end:
+        mid = (start+end)//2
+        if array[mid] == array[target]:
+            return mid
+        elif array[mid] > array[target]:
+            end = mid-1
+        else:
+            start = mid+1
+    return None
+
+# N(가게의 부품 개수) 입력
+n = int(input())
+
+# 가게에 있는 전체 부품 번호를 공백으로 구분하여 입력
+array = list(map(int, input().split()))
+array.sort() # 이진 탐색을 수행하기 위해 사전에 정렬 수행
+# M (손님이 확인 요청한 부품 개수) 입력
+m = int(input())
+# 손님이 확인 요청한 전체 부품 번호를 공백으로 구분하여 입력
+x = list(map(int, input().split()))
+
+# 손님이 확인 요청한 부품 번호를 확인
+for i in x:
+    # 해당 부품이 존재하는지 확인
+    result = binary_search(array, i, 0, n-1)
+    if result != None:
+        print('yes', end='')
+    else:
+        print('no', end=' ')
+
+~~~
